@@ -42,6 +42,8 @@ class Bootstrap
         Adapter::connect();               // соединение с бд
 
         \Application\Core\Route::start(); // запускаем маршрутизатор
+
+
     }
 
     /**
