@@ -26,7 +26,7 @@ class User
      * @return void
      */
     public function setPass($password){
-        $this->password = self::cryptPass($password);
+        $this->password = $password;//self::cryptPass($password);
     }
 
     /**
@@ -44,30 +44,41 @@ class User
      * @return array|boolean
      */
     function  tryAuth(){
-
+        $this->name=stripslashes($this->name);
+        $this->name=htmlspecialchars($this->name);
+        $this->password=stripslashes($this->password);
+        $this->password=htmlspecialchars($this->password);
         $errors = array();
-        if (isEmpty($this->name)){
-            $errors[] = "Введите имя";
+        if (empty($this->name)){
+            $errors['emptyName'] = "Введите имя";
+            return $errors;
         }
-        if (isEmpty($this->password)){
-            $errors[] = "Введите пароль";
+
+        if (empty($this->password)){
+            $errors['emptyPass'] = "Введите пароль";
+            return $errors;
         }
 
         $querry = "SELECT *  
-                   FROM '$this->table'
+                   FROM $this->table
                    WHERE   name = '$this->name'
                 ;";
 
         $result = $this->adapter->sqlExec($querry);
         $result = $result->fetchAll();
+       // var_dump($result);
+
         if (empty($result)){
-            $errors[] = "Пользователя с таким именем не существует";
+            $errors['emptyUser'] = "Пользователя с таким именем не существует";
+            return $errors;
         }
 
-        if (!empty($result)) return true;
+        if($result[0]['password'] != $this->cryptPass($this->password)){
+            $errors['wrongPass'] = "Пароль указан неверно";
+        }
+        $result = empty($errors) ? true : $errors;
 
-
-
+        return $result;
     }
 
     public function create(){
