@@ -26,6 +26,23 @@ class Helper
         $int++;
     }
 
+    /**
+     * генерирует случайную строку
+     *
+     * @param int $lengh - длина требуемой строки
+     *
+     * @return string
+     */
+    public static function generateCode($lengh=7) {
+        $chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPRQSTUVWXYZ0123456789";
+        $code = "";
+        $clen = strlen($chars) - 1;
+        while (strlen($code) < $lengh) {
+            $code .= $chars[mt_rand(0,$clen)];
+        }
+        return $code;
+    }
+
 
 
 

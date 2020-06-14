@@ -22,7 +22,6 @@ class Bootstrap
     protected static
         //Подключаемые модули
         $include_list = array(
-        // 'core/autoloader.php',
         'core/route.php',
         'core/model.php',
         'core/view.php',
@@ -35,15 +34,10 @@ class Bootstrap
      */
     public static function init()
     {
-        foreach (self::$include_list as $inc_file)
-            include($inc_file);
-
+        foreach (self::$include_list as $inc_file) include($inc_file);
         self::loadConfig();
         Adapter::connect();               // соединение с бд
-
         \Application\Core\Route::start(); // запускаем маршрутизатор
-
-
     }
 
     /**

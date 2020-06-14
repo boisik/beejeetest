@@ -6,8 +6,12 @@
  * Time: 15:20
  */
 
-use Application\Core\Helper;
 
-echo "<pre>";
-Helper::vardump($data);
-echo "</pre>";
+if (is_countable($data)){
+    foreach ($data as $one){
+    print_r($one);
+    }
+}else{
+    print_r($data);
+}
+

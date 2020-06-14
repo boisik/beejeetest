@@ -7,6 +7,9 @@
  * Time: 18:28
  */
 namespace Application\Models;
+use Application\Core\Helper;
+use function Clue\StreamFilter\register;
+
 class User
 {
     private
@@ -40,23 +43,24 @@ class User
     }
 
     /**
-     * Производится попытка авторизации
+     * Проверка введенных данных
      * @return array|boolean
      */
-    function  tryAuth(){
+    public function checkData()
+    {
         $this->name=stripslashes($this->name);
         $this->name=htmlspecialchars($this->name);
         $this->password=stripslashes($this->password);
         $this->password=htmlspecialchars($this->password);
-        $errors = array();
+        $result = array();
         if (empty($this->name)){
-            $errors['emptyName'] = "Введите имя";
-            return $errors;
+            $result['errors']['emptyName'] = "Введите имя";
+            return $result;
         }
 
         if (empty($this->password)){
-            $errors['emptyPass'] = "Введите пароль";
-            return $errors;
+            $result['errors']['emptyPass'] = "Введите пароль";
+            return $result;
         }
 
         $querry = "SELECT *  
@@ -66,32 +70,86 @@ class User
 
         $result = $this->adapter->sqlExec($querry);
         $result = $result->fetchAll();
-       // var_dump($result);
 
         if (empty($result)){
-            $errors['emptyUser'] = "Пользователя с таким именем не существует";
-            return $errors;
+            $result['errors']['emptyUser'] = "Пользователя с таким именем не существует";
+            return $result;
         }
 
         if($result[0]['password'] != $this->cryptPass($this->password)){
-            $errors['wrongPass'] = "Пароль указан неверно";
+            $result['errors']['wrongPass'] = "Пароль указан неверно";
         }
-        $result = empty($errors) ? true : $errors;
 
+        $result['noErrors'] = !isset($result['errors']) ? true : false;
         return $result;
     }
 
-    public function create(){
+    /**
+     * Производится попытка авторизации
+     * @return array|boolean
+     */
+    function  tryAuth()
+    {
+        $validationResult = $this->checkData();
+
+        if ($validationResult['noErrors'] == true){
+
+            $hash = Helper::generateCode();
+            $this->updateUserHash($hash);
+            setcookie("user_hash", $hash, time()+60*60*24*30, "/", null, null, true); // httponly !!!
+        return $result['OK']= 'Авторизация прошла успешно';
+        }
+        return $validationResult['errors'];
+    }
+
+    /**
+     * Функция разавторизации
+     */
+    public  function logOut()
+    {
+        unset($_COOKIE['user_hash']);
+    }
+
+    /**
+     * Проверка авторизовывался ли пользователь
+     * @return boolean
+     */
+    public function isAuth()
+    {
+       return $result = isset($_COOKIE['user_hash']) ? true : false;
+    }
+
+    /**
+     * обновляется хеш в таблице пользователей и ip последней авторизации
+     * @param string $hash - случайная строка
+     */
+    function updateUserHash($hash)
+    {
+
+        $querry = "UPDATE  $this->table
+                   SET
+                   
+                   hash = '".$hash."',
+                   ip   = '".$_SERVER['REMOTE_ADDR']."'              
+                  
+                  ;";
+        $this->adapter->sqlExec($querry);
+    }
+
+    public function create()
+    {
+        $pass = $this->cryptPass($this->password);
+
         $querry = "INSERT INTO $this->table
                    SET
                    
                    name = '$this->name',
-                   password   = '$this->password'              
+                   password   = '$pass'              
                   
                   ;";
 
         $result = $this->adapter->sqlExec($querry);
-        var_dump($result);
+
         return $result;
     }
 
@@ -107,6 +165,8 @@ class User
     {
         return md5($password . sha1(\Setup::$SECRET_SALT));
     }
+
+
 
 
 

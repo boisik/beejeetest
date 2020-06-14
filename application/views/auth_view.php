@@ -1,6 +1,6 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
         <div class="row">
-            <div class="col-md-6 col-md-offset-3  col-lg-6 col-lg-offset-3 col-sm-12 col-xs-12 center-block">
+            <div class="col-md-3 col-md-offset-3  col-lg-3 col-lg-offset-3 col-sm-12 col-xs-12 center-block">
                 <fieldset>
                     <legend>Авторизация</legend>
 
@@ -18,7 +18,10 @@
 
                 </fieldset>
             </div>
-            <div id="errors" class="errors">
+            <div class="col-md-3 col-md-offset-3  col-lg-3 col-lg-offset-3 col-sm-12 col-xs-12 center-block">
+                <div id="errors" class="errors">
+            </div>
+
         </div>
        <?php $data ?>
 
@@ -27,9 +30,10 @@
                     $('form').submit(function () {
                         var formID = $(this).attr('id'); // Получение ID формы
                         var formNm = $('#' + formID);
+
                         $.ajax({
                             type: 'POST',
-                            url: 'http://app.local/auth/auth', // Обработчик формы отправки
+                            url: '/auth/auth/', // Обработчик формы отправки
                             data: formNm.serialize(),
                             success: function (data) {
 
