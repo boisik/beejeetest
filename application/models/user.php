@@ -8,7 +8,7 @@
  */
 namespace Application\Models;
 use Application\Core\Helper;
-use function Clue\StreamFilter\register;
+
 
 class User
 {
@@ -105,16 +105,18 @@ class User
     /**
      * Функция разавторизации
      */
-    public  function logOut()
+    public function logOut()
     {
-        unset($_COOKIE['user_hash']);
+        setcookie("user_hash","",time()-3600,"/");
+
+        header("Location:".'/');
     }
 
     /**
      * Проверка авторизовывался ли пользователь
      * @return boolean
      */
-    public function isAuth()
+    public static  function isAuth()
     {
        return $result = isset($_COOKIE['user_hash']) ? true : false;
     }

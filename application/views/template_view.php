@@ -5,6 +5,8 @@
  * Date: 10.06.2020
  * Time: 19:58
  */
+use Application\Core\Route;
+use Application\Models\User;
 ?>
 <html lang="en" class="no-js">
 <head>
@@ -18,11 +20,23 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-    <!-- Brand -->
-    <a class="navbar-brand" href="#">Logo</a>
+
+
 
     <!-- Links -->
     <ul class="navbar-nav">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
+                <?php if(User::isAuth()):?> Вы авторизованы <?php else: ?>  Вы не авторизованы   <?php endif; ?>
+            </a>
+            <div class="dropdown-menu">
+                <a class="dropdown-item" href="<?php Route::getUrl('auth');?>">Страница Авторизации</a>
+                <?php if(User::isAuth()):?>
+                <a class="dropdown-item" href="<?php Route::getUrl('auth','logout');?>">Выйти изучетной записи</a>
+                <?php endif; ?>
+
+            </div>
+        </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Link 1</a>
         </li>

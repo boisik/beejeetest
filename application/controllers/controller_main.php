@@ -13,10 +13,10 @@ class Controller_Main extends Controller
     function action_index()
     {
 
-      $user = new \Application\Models\User();
+      /*$user = new \Application\Models\User();
         $user->setName('yashka1');
         $user->setPass('12345');
-        $user->create();
+        $user->create();*/
         $this->view->generate('main_view.php', 'template_view.php');
     }
 }

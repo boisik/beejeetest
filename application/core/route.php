@@ -88,4 +88,23 @@ class Route
 
     }
 
+
+    /**
+     * Вызов нужного екшена в любом месте для фронта
+     * @return string
+     * @throws Exception
+     */
+
+    public static function getUrl($controller_name,$action_name = "", $params = array())
+    {
+        if (!isset($controller_name)){
+            throw new Exception('Не хватает обязательных параметров для построения маршрута',0,null,"testinfo");
+        }
+        if (!empty($action_name)) $action_name = "/".$action_name;
+        $uri =$params['0'] ? '?'.http_build_query($params): " ";
+
+        //var_dump($_SERVER['SERVER_NAME']."/".$controller_name.$action_name.$uri);
+        echo   "/".$controller_name.$action_name.$uri;
+    }
+
 }

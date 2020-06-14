@@ -31,4 +31,11 @@ class Controller_Auth extends Controller
         }
 
     }
+
+    function action_logout()
+    {
+        $user = new \Application\Models\User();
+        $user->logOut();
+    }
+
 }
