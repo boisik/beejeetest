@@ -26,11 +26,12 @@ class Controller_Auth extends Controller
             $user->setPass($pass);
             $result = $user->tryAuth();
 
-            $this->view->generate('authresult_view.php', 'answer_view.php',$result);
+            $this->view->generate('result_view.php', 'answer_view.php',$result);
 
         }
 
     }
+
 
     function action_logout()
     {

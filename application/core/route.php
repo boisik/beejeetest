@@ -103,7 +103,7 @@ class Route
         if (!empty($action_name)) $action_name = "/".$action_name;
         $uri =$params['0'] ? '?'.http_build_query($params): " ";
 
-        //var_dump($_SERVER['SERVER_NAME']."/".$controller_name.$action_name.$uri);
+
         echo   "/".$controller_name.$action_name.$uri;
     }
 

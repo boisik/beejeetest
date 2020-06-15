@@ -38,7 +38,7 @@ use Application\Models\User;
             </div>
         </li>
         <li class="nav-item">
-            <a class="nav-link" href="#">Link 1</a>
+            <a class="nav-link" href="/">Список задач</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" href="#">Link 2</a>
@@ -47,11 +47,11 @@ use Application\Models\User;
         <!-- Dropdown -->
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                Dropdown link
+               Задачи
             </a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Link 1</a>
-                <a class="dropdown-item" href="#">Link 2</a>
+                <a class="dropdown-item" href="/">Список задач</a>
+                <a class="dropdown-item" href="<?php Route::getUrl('task','addtask');?>">Добавить задачу</a>
                 <a class="dropdown-item" href="#">Link 3</a>
             </div>
         </li>
