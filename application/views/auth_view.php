@@ -7,8 +7,7 @@
                     <form method="POST" id="auth">
                         <label for="add_name">Введите Ваше Имя</label><br/>
                         <input type="text" id="add_name" name="add_name" value=""/>
-                        <br/>
-                        <br/>
+
                         <label for="add_email">Введите Пароль</label><br/>
                         <input type="text" id="add_pass" name="add_pass" value=""/>
                         <p class="p_note"></p>

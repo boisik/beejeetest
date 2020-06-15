@@ -13,10 +13,9 @@ class Controller_Main extends Controller
     function action_index()
     {
 
-      /*$user = new \Application\Models\User();
-        $user->setName('yashka1');
-        $user->setPass('12345');
-        $user->create();*/
-        $this->view->generate('main_view.php', 'template_view.php');
+        $taskApi = new Application\Models\TaskApi();
+        $tasks = $taskApi->getList();
+        $result['list'] = $tasks;
+        $this->view->generate('tasklist_view.php', 'template_view.php',$result);
     }
 }

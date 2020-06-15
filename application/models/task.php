@@ -19,13 +19,44 @@ class Task
         $status,
         $edited,
         $text,
-        $table = "tasks";
+        $table = "tasks",
+        $empty = "пусто";
     function __construct()
     {
         $this->adapter = new \Application\Core\Adapter();
     }
 
+    /**
+     * извлекает из объекта значение свойства userName
+     *
 
+     * @return string $userName - имя пользователя
+     */
+
+
+    public function getUserName(){
+        return $this->userName;
+    }
+
+    public function getUserEmail(){
+        return $this->userEmail;
+    }
+
+    public function getText(){
+        return $this->text;
+    }
+
+    public function getStatus(){
+        return $this->status;
+    }
+
+    public function getEdited(){
+        return $this->edited;
+    }
+
+    public function getTableName(){
+        return $this->table;
+    }
 
     /**
      * устанавливает объекту значение свойства userName
@@ -47,6 +78,10 @@ class Task
 
     public function setStatus($status){
         $this->status = $status;
+    }
+
+    public function setEdited($edited){
+        $this->edited = $edited;
     }
 
     /**
@@ -87,7 +122,7 @@ class Task
             return $result['errors'];
         }
 
-        $querry = "INSERT INTO $this->table
+        $querry = "INSERT INTO $this->getTableName()
                    SET
                    
                    username = '$this->userName',
@@ -100,6 +135,10 @@ class Task
 
         return $result['OK']= 'Задача добавлена, перейдите к списку задач, используя верхнее меню';
     }
+
+
+
+
 
 
 

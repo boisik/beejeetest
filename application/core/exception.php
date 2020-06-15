@@ -13,6 +13,7 @@ class Exception extends \Exception
 
     function __construct($message = '', $code = 0, Exception $previous = null, $extra_info = '')
     {
+
         $this->extra_info = $extra_info;
         parent::__construct($message, $code, $previous);
     }

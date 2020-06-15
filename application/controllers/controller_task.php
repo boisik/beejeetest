@@ -15,7 +15,10 @@ class Controller_Task extends Controller
 
     function action_index()
     {
-        $this->view->generate('tasklist_view.php', 'template_view.php');
+        $taskApi = new Application\Models\Task();
+        $tasks = $taskApi->getList();
+        $result['list'] = $tasks;
+        $this->view->generate('tasklist_view.php', 'template_view.php',$result);
     }
 
     function action_addTask()
