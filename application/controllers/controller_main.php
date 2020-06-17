@@ -12,10 +12,7 @@ class Controller_Main extends Controller
 
     function action_index()
     {
+        header("Location:".'/task');
 
-        $taskApi = new Application\Models\TaskApi();
-        $tasks = $taskApi->getList();
-        $result['list'] = $tasks;
-        $this->view->generate('tasklist_view.php', 'template_view.php',$result);
     }
 }

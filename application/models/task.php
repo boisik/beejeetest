@@ -121,8 +121,8 @@ class Task
         if (isset($result['errors'])){
             return $result['errors'];
         }
-
-        $querry = "INSERT INTO $this->getTableName()
+        $tableName = $this->getTableName();
+        $querry = "INSERT INTO $tableName
                    SET
                    
                    username = '$this->userName',

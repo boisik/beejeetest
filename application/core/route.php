@@ -16,8 +16,10 @@ class Route
         // контроллер и действие по умолчанию
         $controller_name = 'Main';
         $action_name = 'index';
+        $uri = $_SERVER['REQUEST_URI'];
+        $uri = stripos($uri, "?") ? stristr($uri, '?', true):$uri;
 
-        $routes = explode('/', $_SERVER['REQUEST_URI']);
+        $routes = explode('/', $uri);
 
 
         if ( !empty($routes[1]) )
@@ -97,14 +99,15 @@ class Route
 
     public static function getUrl($controller_name,$action_name = "", $params = array())
     {
+
         if (!isset($controller_name)){
             throw new Exception('Не хватает обязательных параметров для построения маршрута',0,null,"testinfo");
         }
         if (!empty($action_name)) $action_name = "/".$action_name;
-        $uri =$params['0'] ? '?'.http_build_query($params): " ";
+        $uri =$params ? '?'.http_build_query($params): " ";
 
 
-        echo   "/".$controller_name.$action_name.$uri;
+       echo   "/".$controller_name.$action_name.$uri;
     }
 
 }

@@ -15,9 +15,19 @@ class Controller_Task extends Controller
 
     function action_index()
     {
-        $taskApi = new Application\Models\Task();
-        $tasks = $taskApi->getList();
-        $result['list'] = $tasks;
+        $taskApi = new Application\Models\Taskapi();
+        $page = isset($_GET['page']) ? $_GET['page'] : "0";
+        $vector = isset($_GET['vector']) ? $_GET['vector'] : "ASC";
+        $columnName = isset($_GET['columnName']) ? $_GET['columnName'] : "username";
+        $nextVector = $vector == "ASC" ? "DESC" : "ASC";
+        $tasks = array_chunk($taskApi->getList($columnName,$vector), 3);
+        $paginator = count ($tasks);
+        $result['list'] = $tasks[$page];
+        $result['nextVector'] = $nextVector;
+        $result['vector'] = $vector;
+        $result['page'] = $page;
+        $result['columnName'] = $columnName;
+        $result['paginator'] = $paginator;
         $this->view->generate('tasklist_view.php', 'template_view.php',$result);
     }
 

@@ -11,12 +11,8 @@
 
     <div class="content-wrap">
         <div class="content">
-            <header class="codrops-header">
 
-                <h1>Нажав на меню слева, можно перейти на страницы реализации пунктов тестового задания</h1>
 
-            </header>
-            <!-- Related demos -->
             <?php
             echo \Application\Core\Adapter::isConnected()
             ?>
