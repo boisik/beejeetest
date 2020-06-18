@@ -20,14 +20,14 @@ class Controller_Task extends Controller
         $vector = isset($_GET['vector']) ? $_GET['vector'] : "ASC";
         $columnName = isset($_GET['columnName']) ? $_GET['columnName'] : "username";
         $nextVector = $vector == "ASC" ? "DESC" : "ASC";
-        $tasks = array_chunk($taskApi->getList($columnName,$vector), 3);
-        $paginator = count ($tasks);
-        $result['list'] = $tasks[$page];
+        $tasks = $taskApi->getList($columnName,$vector,$page*3);
+        $paginator = $taskApi->getCountTasks();
+        $result['list'] = $tasks;
         $result['nextVector'] = $nextVector;
         $result['vector'] = $vector;
         $result['page'] = $page;
         $result['columnName'] = $columnName;
-        $result['paginator'] = $paginator;
+        $result['paginator'] = $paginator/3;
         $this->view->generate('tasklist_view.php', 'template_view.php',$result);
     }
 
@@ -48,6 +48,31 @@ class Controller_Task extends Controller
 
         }else{
             $this->view->generate('addtask_view.php', 'template_view.php');
+        }
+    }
+
+    function action_editTask()
+    {
+
+        $taskApi = new Application\Models\Taskapi();
+        $id = isset($_GET['id']) ? $_GET['id'] : '0';
+        $task = $taskApi->getByID($id);
+
+        if ($_POST['operation'] =='edittask'){
+
+
+            $status = isset($_POST['add_status'])? "1":"0";
+            $text = filter_input(INPUT_POST, 'add_text');
+            $taskModified = new \Application\Models\Task();
+
+            $taskModified->setStatus($status);
+            $taskModified->addText($text);
+            $result = $taskModified->update($id);
+
+            $this->view->generate('result_view.php', 'answer_view.php',$result);
+
+        }else{
+            $this->view->generate('edittask_view.php', 'template_view.php',$task);
         }
     }
 }

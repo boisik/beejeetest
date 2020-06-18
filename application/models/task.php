@@ -14,6 +14,7 @@ class Task
 {
     private
         $adapter,
+        $id,
         $userName,
         $userEmail,
         $status,
@@ -58,6 +59,10 @@ class Task
         return $this->table;
     }
 
+    public function getId(){
+        return $this->id;
+    }
+
     /**
      * устанавливает объекту значение свойства userName
      *
@@ -82,6 +87,9 @@ class Task
 
     public function setEdited($edited){
         $this->edited = $edited;
+    }
+    public function setId($id){
+        $this->id = $id;
     }
 
     /**
@@ -137,8 +145,27 @@ class Task
     }
 
 
+    /**
+     * внесение изменения в задачу
+     *
+     * @param int $id идентификатор задания
+     * @return array
+     */
 
-
+    function update($id)
+    {
+        $querry = "UPDATE  $this->table
+                   SET                   
+                   text      = '$this->text',
+                   status    = '$this->status',
+                   edited   =   '1'        
+                    WHERE id = '$id'
+                  ;";
+        $result = $this->adapter->sqlExec($querry);
+        var_dump($querry);
+        $arrayResult['OK']= 'Поля задания обновлены';
+        return $arrayResult;
+    }
 
 
 

@@ -4,12 +4,12 @@
                 <fieldset>
                     <legend>Авторизация</legend>
 
-                    <form method="POST" id="auth">
+                    <form method="POST" id="auth" data-action="/auth/auth">
                         <label for="add_name">Введите Ваше Имя</label><br/>
                         <input type="text" id="add_name" name="add_name" value=""/>
 
                         <label for="add_email">Введите Пароль</label><br/>
-                        <input type="text" id="add_pass" name="add_pass" value=""/>
+                         <input type="text" id="add_pass" name="add_pass" value=""/>
                         <p class="p_note"></p>
                         <input type="hidden" name="operation" value="auth"/>
                         <input type="submit"/>
@@ -22,25 +22,5 @@
             </div>
 
         </div>
-       <?php $data ?>
-
-            <script type="text/javascript">
-                $(document).ready(function () {
-                    $('form').submit(function () {
-                        var formID = $(this).attr('id'); // Получение ID формы
-                        var formNm = $('#' + formID);
-
-                        $.ajax({
-                            type: 'POST',
-                            url: '/auth/auth/', // Обработчик формы отправки
-                            data: formNm.serialize(),
-                            success: function (data) {
 
 
-                                $('.errors').html(data);
-                            }
-                        });
-                        return false;
-                    });
-                });
-            </script>
