@@ -7,9 +7,9 @@
  */
 
 
-if (is_countable($data)){
+if (is_array($data)){
     foreach ($data as $one){
-    print_r($one);
+    print_r($one."<br>");
     }
 }else{
     print_r($data);

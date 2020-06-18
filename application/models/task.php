@@ -104,6 +104,8 @@ class Task
         $this->userEmail=htmlspecialchars($this->userEmail);
         $this->text=stripslashes($this->text);
         $this->text=htmlspecialchars($this->text);
+        $this->text=trim($this->text);
+
         $result = array();
         if (empty($this->userName)){
             $result['errors']['emptyUserName'] = "Введите имя";
@@ -148,21 +150,29 @@ class Task
     /**
      * внесение изменения в задачу
      *
-     * @param int $id идентификатор задания
+     * @param Task - объект до перезаписи
      * @return array
      */
 
-    function update($id)
+    function update($task)
     {
+        $this->text=stripslashes($this->text);
+        $this->text=htmlspecialchars($this->text);
+        $this->text=trim($this->text);
+        $oldText =  trim($task->getText());
+       
+        $newText = $this->getText();
+        $editied = (strcasecmp($oldText,$newText) == "0") ? '0' : '1';
+
         $querry = "UPDATE  $this->table
                    SET                   
                    text      = '$this->text',
                    status    = '$this->status',
-                   edited   =   '1'        
-                    WHERE id = '$id'
+                   edited   =   '$editied'        
+                    WHERE id = '$this->id'
                   ;";
         $result = $this->adapter->sqlExec($querry);
-        var_dump($querry);
+
         $arrayResult['OK']= 'Поля задания обновлены';
         return $arrayResult;
     }

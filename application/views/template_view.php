@@ -9,11 +9,14 @@ use Application\Core\Route;
 use Application\Models\User;
 ?>
 <html lang="en" class="no-js">
+<title>BJ test</title>
 <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <title>BJ test</title>
+
+        <link rel="stylesheet" type="text/css" href="/application/views/css/style.css" >
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
 
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
@@ -37,12 +40,7 @@ use Application\Models\User;
 
             </div>
         </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/">Список задач</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Link 2</a>
-        </li>
+
 
         <!-- Dropdown -->
         <li class="nav-item dropdown">
@@ -52,7 +50,7 @@ use Application\Models\User;
             <div class="dropdown-menu">
                 <a class="dropdown-item" href="/">Список задач</a>
                 <a class="dropdown-item" href="<?php Route::getUrl('task','addtask');?>">Добавить задачу</a>
-                <a class="dropdown-item" href="#">Link 3</a>
+
             </div>
         </li>
     </ul>

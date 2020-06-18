@@ -8,6 +8,7 @@ use Application\Core\Route;
  */
 ?>
 <div class="row">
+    <div class="marginAuto">
     <?php for ($i = 0; $i < $data['paginator']; $i++) { ?>
         <a class="" href="<?php
         $params = array(
@@ -20,6 +21,7 @@ use Application\Core\Route;
             <?php  printf($i); ?>
         </a>
     <? } ?>
+    </div>
 </div>
 <div class="row">
     <div class="col-md-2  col-lg-2 col-sm-2 col-xs-2 center-block">
@@ -87,10 +89,10 @@ use Application\Core\Route;
         $status = $task->getStatus();
         $mod = $task->getEdited();
         $status ? printf('Выполнено <br>') : printf('Не Выполнено <br>');
-        $mod ? printf('Было отредактировано'):printf('Не редактировалось');
+        $mod ? printf('Было Oтредактировано'):printf('Не редактировалось');
         ?>
     </div>
-    <div class="col-md-2  col-lg-2 col-sm-2 col-xs-2 center-block">
+    <div class="col-md-2  col-lg-2 col-sm-2 col-xs-2 center-block task">
         <a class="" href="<?php
         $params = array(
             'id' =>$task->getId()

@@ -17,7 +17,7 @@
 
         </fieldset>
     </div>
-    <div class="col-md-3 col-md-offset-3  col-lg-3 col-lg-offset-3 col-sm-12 col-xs-12 center-block">
+    <div class="col-md-5 col-md-offset-5  col-lg-5 col-lg-offset-3 col-sm-12 col-xs-12 center-block">
         <div id="errors" class="errors">
         </div>
 

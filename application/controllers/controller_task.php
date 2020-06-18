@@ -7,10 +7,11 @@
  */
 
 use Application\Core\Controller;
-
-
+use Application\Models\User;
+use Application\Core\Route;
 class Controller_Task extends Controller
 {
+
 
 
     function action_index()
@@ -53,6 +54,7 @@ class Controller_Task extends Controller
 
     function action_editTask()
     {
+        if(!User::isAuth()) Route::ErrorPage403();
 
         $taskApi = new Application\Models\Taskapi();
         $id = isset($_GET['id']) ? $_GET['id'] : '0';
@@ -66,8 +68,9 @@ class Controller_Task extends Controller
             $taskModified = new \Application\Models\Task();
 
             $taskModified->setStatus($status);
+            $taskModified->setId($id);
             $taskModified->addText($text);
-            $result = $taskModified->update($id);
+            $result = $taskModified->update($task);
 
             $this->view->generate('result_view.php', 'answer_view.php',$result);
 

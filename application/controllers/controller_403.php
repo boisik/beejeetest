@@ -6,12 +6,12 @@
  * Time: 20:00
  */
 use Application\Core\Controller;
-class Controller_404 extends Controller
+class Controller_403 extends Controller
 {
 
     function action_index()
     {
-        $this->view->generate('error_view.php', 'template_view.php','error_404');
+        $this->view->generate('error_view.php', 'template_view.php','error_403, Please AUTH');
     }
 
 }
